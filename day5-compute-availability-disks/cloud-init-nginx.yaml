@@ -1,0 +1,6 @@
+#cloud-config
+packages:
+  - nginx
+runcmd:
+  - bash -lc 'echo "Hello from $(hostname)" > /var/www/html/index.nginx-debian.html'
+  - systemctl enable --now nginx
