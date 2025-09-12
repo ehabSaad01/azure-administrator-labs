@@ -1,0 +1,4 @@
+AzureActivity
+| where OperationNameValue =~ "Microsoft.Resources/subscriptions/resourceGroups/delete"
+| project TimeGenerated, Caller, ResourceGroup, ActivityStatusValue
+| order by TimeGenerated desc

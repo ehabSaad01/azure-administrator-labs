@@ -1,0 +1,3 @@
+Heartbeat
+| summarize LastBeat = max(TimeGenerated) by Computer
+| where LastBeat < ago(10m)
