@@ -1,0 +1,41 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    { "type": 1, "content": { "json": "### Day11 — Monitoring overview" } },
+    {
+      "type": 3,
+      "content": {
+        "version": "MetricsItem/2.0",
+        "chartSettings": { "title": "VM Percentage CPU", "visualization": "Line" },
+        "metrics": [
+          {
+            "resourceMetadata": { "resourceType": "microsoft.compute/virtualmachines" },
+            "metricNamespace": "Microsoft.Compute/virtualMachines",
+            "name": "Percentage CPU",
+            "aggregationType": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "Heartbeat\n| summarize LastBeat = max(TimeGenerated) by Computer\n| order by LastBeat desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      }
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AzureActivity\n| where OperationNameValue =~ \"Microsoft.Resources/subscriptions/resourceGroups/delete\"\n| project TimeGenerated, Caller, ResourceGroup, ActivityStatusValue\n| order by TimeGenerated desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      }
+    }
+  ]
+}
